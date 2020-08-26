@@ -15,6 +15,8 @@ var students = [
     { name: '정정정', nickName: '헬로우', age: 1}
 ];
 
+//
+
 //객체접근
 //students[idx].key1
 //students[idx]['key1']
