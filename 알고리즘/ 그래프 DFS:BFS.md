@@ -60,6 +60,8 @@
 
 ### 그래프의 탐색 
 
+[그래프의 탐색 좋은 설명]([https://nobilitycat.tistory.com/entry/%EA%B9%8A%EC%9D%B4-%EC%9A%B0%EC%84%A0-%ED%83%90%EC%83%89-DFS-%EC%9D%B8%EC%A0%91-%ED%96%89%EB%A0%AC-%EC%9D%B8%EC%A0%91-%EB%A6%AC%EC%8A%A4%ED%8A%B8](https://nobilitycat.tistory.com/entry/깊이-우선-탐색-DFS-인접-행렬-인접-리스트))
+
 * 목적: 모든 정점을 1번씩 방문 
 
 1. DFS: 깊이 우선 탐색 --> 최대한 많이 깊숙히 간다 : 스택 사용
@@ -115,6 +117,57 @@
 2. BFS: 너비 우선 탐색 --> 최대한 넓게 간다 : 큐 사용 
 
    * 모든 가중치가 1일 경우 최단거리를 찾는 문제가 된다
+
+   * 큐를 이용해서 지금 위치에서 갈 수 있는 것을 모두 큐에 넣는 방식
+
+   * 큐에 넣을 때 방문했다고 체크해야 한다.
+
+   * ``` c
+     //인접행렬의 경우
+     
+     queue<int> q;
+     //시작점을 우선 큐 안에다 넣는다
+     check[1] = true; 
+     q.push(1);
+     
+     while(!q.empty()){
+       //큐의 제일 앞에 있는 x를 뺀다
+       int x = q.front();
+       q.pop();
+       printf("%d ", x);
+       for(int i=1; i<=n; i++){
+         //x의 다음 정점을 찾는 코드
+         if(a[x][i] == 1 && check[i] == false){
+           check[i] = true;
+           q.push(i);
+         }
+       }
+     }
+     ```
+
+   * ```c
+     //인접 리스트의 경우
+     queue<int> q;
+     check[1] = true;
+     q.push(1);
+     
+     while(!q.empty()){
+       int x = q.front();
+       q.pop();
+       printf("%d", x);
+       
+       for(int i=0; i<a[x].size(); i++){
+         int y = a[x][i];
+         if(check[y]==false){
+           check[y] = true;
+           q.push(y);
+         }
+       }
+       
+     }
+     ```
+
+   * 
 
 
 
