@@ -120,7 +120,10 @@
      }
      ```
 
-   * 
+
+   ***
+
+   
 
 2. BFS: 너비 우선 탐색 --> 최대한 넓게 간다 : 큐 사용 
 
@@ -129,6 +132,18 @@
    * 큐를 이용해서 지금 위치에서 갈 수 있는 것을 모두 큐에 넣는 방식
 
    * 큐에 넣을 때 방문했다고 체크해야 한다.
+
+   * 1에서 갈 수 있는것을 큐에 넣어준 후  check배열에 체크, 더 이상 1에서 갈 수 있는 곳이 없으면 1을 pop 해준다
+
+   * <img src ="../img/스크린샷 2020-08-29 오전 12.18.45.png">
+
+     
+
+   * 다음 정점으로 이동 그 다음 정점에서 갈 수 있는곳 큐에 넣어주고 체크를 바꿔줌
+
+   * 방문이 끝나면 마찬가지로 pop 
+
+   * 마지막으로 큐는 비게 된다.
 
    * ``` c
      //인접행렬의 경우
@@ -175,7 +190,82 @@
      }
      ```
 
-   * 
+
+
+```java
+import java.util.*;
+
+public class Main {
+  
+    static ArrayList<Integer>[] a;
+    static boolean[] c;
+  
+  
+    public static void dfs(int x) {
+        if (c[x]) {
+            return;
+        }
+        c[x] = true;
+        System.out.print(x + " ");
+        for (int y : a[x]) {
+            if (c[y] == false) {
+                dfs(y);
+            }
+        }
+    }
+  
+    public static void bfs(int start) {
+        Queue<Integer> q = new LinkedList<Integer>();
+       //시작점을 큐에 넣고, 체크도 해준다.
+      	q.add(start);
+        c[start] = true;
+      	
+      	//큐가 비어있지 않다면 x로 해당 정점을 빼서 
+        while (!q.isEmpty()) {
+            int x = q.remove();
+            System.out.print(x + " ");
+          
+          	//다음 정점을 찾아 큐에 더해 준다
+            for (int y : a[x]) {
+                if (c[y] == false) {
+                  
+                  //true로 바꿔주고 큐에 넣어준다.
+                  c[y] = true;  
+                  q.add(y);
+                }
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int start = sc.nextInt();
+      
+        a = (ArrayList<Integer>[]) new ArrayList[n+1];
+        for (int i=1; i<=n; i++) {
+            a[i] = new ArrayList<Integer>();
+        }
+        for (int i=0; i<m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            a[u].add(v);
+            a[v].add(u);
+        }
+        for (int i=1; i<=n; i++) {
+            Collections.sort(a[i]);
+        }
+        c = new boolean[n+1];
+        dfs(start);
+        System.out.println();
+        c = new boolean[n+1];
+        bfs(start);
+        System.out.println();
+    }
+}
+```
+
+
 
 
 
