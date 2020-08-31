@@ -9,4 +9,12 @@ router.get('/', (req, res) => {
     res.status(200).send(result);
 });
 
+router.get('/use', (req, res) => {
+    const result = {
+        status: 200,
+        message: 'apiuse~!'
+    }
+    res.status(200).send(result);
+});
+
 module.exports = router;
